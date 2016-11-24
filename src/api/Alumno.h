@@ -14,7 +14,7 @@ public:
 
     std::string nombre;
     std::string apellido;
-    long padrón;
+    long padron;
 
 };
 

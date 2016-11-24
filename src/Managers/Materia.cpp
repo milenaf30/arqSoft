@@ -21,6 +21,10 @@ Materia::Materia(Json::Value jMateria) {
 
 Materia::~Materia() {
 
+    for(int index = 0; index < this->cursos.size(); index++) {
+        delete (this->cursos[index]);
+    }
+
 }
 
 Curso *Materia::getCurso(long cursoID) {

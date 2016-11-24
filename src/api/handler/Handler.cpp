@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Handler.h"
-#include "../../session/SessionManager.h"
-#include "../../Exceptions/NotAuthorizedException.h"
+#include "../InvalidRequestException.h"
+#include "../../DB/DBWrapper.h"
 
 static const struct mg_str s_get_method = MG_MK_STR("GET");
 static const struct mg_str s_put_method = MG_MK_STR("PUT");
@@ -15,7 +15,6 @@ Handler::Handler() {
 }
 
 Handler::~Handler() {
-    delete session;
     delete namedb;
     DBWrapper::ResetInstance();
 }
@@ -23,27 +22,18 @@ Handler::~Handler() {
 Response* Handler::handleRequest(http_message* httpMessage, string url) {
     try {
         if (this->isEqual(&httpMessage->method, &s_get_method)) {
-            if (!getPublic) session = controlAccess(httpMessage);
-            return this->handleGetRequest(httpMessage, url);
+             return this->handleGetRequest(httpMessage, url);
         } else if (this->isEqual(&httpMessage->method, &s_put_method)) {
-            if (!putPublic) session = controlAccess(httpMessage);
             return this->handlePutRequest(httpMessage, url);
         } else if (this->isEqual(&httpMessage->method, &s_delete_method)) {
-            if (!deletePublic) session = controlAccess(httpMessage);
             return this->handleDeleteRequest(httpMessage, url);
         } else if (this->isEqual(&httpMessage->method, &s_post_method)) {
-            if (!postPublic) session = controlAccess(httpMessage);
             return this->handlePostRequest(httpMessage);
         }
     }catch (InvalidRequestException& e) {
         Response* response = new Response();
         response->setBadRequestHeader();
         response->setErrorBody(e.getMessage());
-        return response;
-    } catch (NotAuthorizedException e) {
-        Response* response = new Response();
-        response->setForbiddenRequestHeader();
-        response->setErrorBody(e.what());
         return response;
     } catch (exception& e) {
         Response* response = new Response();
@@ -56,21 +46,6 @@ Response* Handler::handleRequest(http_message* httpMessage, string url) {
     return response;
 }
 
-Session * Handler::controlAccess(http_message *httpMessage) {
-    std::string token = this->getHttpHeader(httpMessage, "Authorization");
-    if (token == "") throw InvalidRequestException("Falta el token de autenticación en el header");
-    SessionManager* sessionManager = new SessionManager(this->db);
-    Session* session = nullptr;
-    try {
-        session = sessionManager->getSession(token);
-    } catch (exception& e){
-        delete sessionManager;
-        throw;
-    }
-    delete sessionManager;
-    return session;
-
-}
 
 Response* Handler::getNotImplementedResponse() {
     Response* response = new Response();

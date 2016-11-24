@@ -46,3 +46,15 @@ long MateriasHandler::getMateriaID(string url) {
         throw InvalidRequestException("Not a numeric id");
     }
 }
+
+Response *MateriasHandler::handlePostRequest(http_message *httpMessage) {
+    return nullptr;
+}
+
+Response *MateriasHandler::handleDeleteRequest(http_message *httpMessage, string url) {
+    return nullptr;
+}
+
+Response *MateriasHandler::handlePutRequest(http_message *httpMessage, string url) {
+    return nullptr;
+}

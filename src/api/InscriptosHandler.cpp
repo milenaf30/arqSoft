@@ -59,3 +59,15 @@ long InscriptosHandler::getCursoID(string url) {
         throw InvalidRequestException("Not a numeric id");
     }
 }
+
+Response *InscriptosHandler::handlePostRequest(http_message *httpMessage) {
+    return nullptr;
+}
+
+Response *InscriptosHandler::handleDeleteRequest(http_message *httpMessage, string url) {
+    return nullptr;
+}
+
+Response *InscriptosHandler::handlePutRequest(http_message *httpMessage, string url) {
+    return nullptr;
+}

@@ -13,6 +13,9 @@ class MateriasHandler: public  Handler{
     ~MateriasHandler();
 
     Response* handleGetRequest(http_message* httpMessage, string url);
+    Response* handlePostRequest(http_message* httpMessage);
+    Response* handleDeleteRequest(http_message* httpMessage, string url);
+    Response* handlePutRequest(http_message* httpMessage, string url);
 
 
     long getMateriaID(string basic_string);

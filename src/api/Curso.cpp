@@ -7,6 +7,7 @@
 Curso::Curso(Json::Value jcurso) {
     this->id = jcurso["cursoID"].asLargestInt();
     this->jCurso = jcurso;
+    this->nombre = jcurso["nombre"].asString();
 
     const Json::Value jprofesores = jcurso["profesores"];
     for (int index = 0; index < jprofesores.size(); index++) {
@@ -28,5 +29,12 @@ Curso::Curso(Json::Value jcurso) {
 }
 
 Curso::~Curso() {
+    for (int index = 0; index < this->inscriptos.size(); index++) {
+        delete(this->inscriptos[index]);
+    }
+
+    for (int index = 0; index < this->calendario.size(); index++) {
+        delete(this->calendario[index]);
+    }
 
 }

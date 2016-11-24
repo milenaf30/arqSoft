@@ -9,15 +9,18 @@
 #include "handler/Handler.h"
 
 class InscriptosHandler: public Handler {
-    InscriptosHandler();
     ~InscriptosHandler();
 
     Response* handleGetRequest(http_message* httpMessage, string url);
-
+    Response* handlePostRequest(http_message* httpMessage) ;
+    Response* handleDeleteRequest(http_message* httpMessage, string url) ;
+    Response* handlePutRequest(http_message* httpMessage, string url) ;
 
     long getCursoID(string url);
-
     long getMateriaID(string url);
+
+public:
+    InscriptosHandler();
 };
 
 

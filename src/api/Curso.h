@@ -19,6 +19,7 @@ public:
     std::vector<Alumno*> inscriptos;
     Json::Value jCurso;
     long id;
+    std::string nombre;
     Curso(Json::Value jcurso);
     ~Curso();
 

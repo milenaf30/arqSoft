@@ -1,5 +1,6 @@
 #include "WebHandler.h"
 #include "MateriasHandler.h"
+#include "InscriptosHandler.h"
 
 WebHandler::WebHandler() {}
 
