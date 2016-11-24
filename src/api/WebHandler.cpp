@@ -1,4 +1,5 @@
 #include "WebHandler.h"
+#include "MateriasHandler.h"
 
 WebHandler::WebHandler() {}
 
@@ -10,7 +11,20 @@ Response* WebHandler::handleRequest(http_message* httpMessage) {
 
         if (&httpMessage->uri) {
             //fixme
-            string url = this->getUrl(httpMessage->uri);}
+            string url = this->getUrl(httpMessage->uri);
+            if (regex_match(url, regex("/materias/.*/cursos")) || regex_match(url, regex("/users"))) {
+                handler = new MateriasHandler();
+                response = handler->handleRequest(httpMessage, url);
+                delete handler;
+                return response;
+            }
+            if (regex_match(url, regex("/materias/.*/cursos/.*/inscriptos"))) {
+                handler = new InscriptosHandler();
+                response = handler->handleRequest(httpMessage, url);
+                delete handler;
+                return response;
+            }
+        }
 
 }
 

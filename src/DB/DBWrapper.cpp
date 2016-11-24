@@ -24,7 +24,7 @@ DBWrapper::ResponseCode DBWrapper::getKey(std::string key, std::string *output) 
     leveldb::Status s = db->Get(leveldb::ReadOptions(), key, output);
 
     if (!s.ok()) {
-        return ERROR;
+        throw std::exception();
     }
 
     return OK;
