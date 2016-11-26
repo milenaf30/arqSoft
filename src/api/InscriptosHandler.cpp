@@ -20,8 +20,13 @@ Response *InscriptosHandler::handleGetRequest(http_message *httpMessage, string 
 
     try {
         long materiaID = this->getMateriaID(url);
-        long cursoID = this->getCursoID(url);
+        string cursoID = this->getCursoID(url);
         Curso* curso = materiaManager->getCurso(materiaID, cursoID);
+        Json::Value body;
+        Json::Value jcurso = curso->jCurso;
+        body["inscriptos"] = jcurso["inscriptos"];
+        response->setSuccessfulHeader();
+        response->setBody(body.toStyledString());
     } catch (InvalidRequestException& e) {
         response->setBadRequestHeader();
         response->setErrorBody(e.getMessage());
@@ -33,11 +38,11 @@ Response *InscriptosHandler::handleGetRequest(http_message *httpMessage, string 
 }
 
 long InscriptosHandler::getMateriaID(string url) {
-    vector<string> parsedUrl = this->parseUrl(url);
-    if (parsedUrl.size() != 1) {
+    vector<string> parsedUrl = split(url, '/');
+    if (parsedUrl.size() < 2) {
         throw InvalidRequestException("Cannot get user id from url.");
     }
-    string materiaIDAsString = parsedUrl[0];
+    string materiaIDAsString = parsedUrl[2];
     try {
         long materiaID = stol(materiaIDAsString);
         return materiaID;
@@ -46,18 +51,13 @@ long InscriptosHandler::getMateriaID(string url) {
     }
 }
 
-long InscriptosHandler::getCursoID(string url) {
-    vector<string> parsedUrl = this->parseUrl(url);
-    if (parsedUrl.size() != 1) {
+string InscriptosHandler::getCursoID(string url) {
+    vector<string> parsedUrl = split(url, '/');
+    if (parsedUrl.size() < 4) {
         throw InvalidRequestException("Cannot get user id from url.");
     }
-    string cursoIDAsString = parsedUrl[1];
-    try {
-        long cursoID = stol(cursoIDAsString);
-        return cursoID;
-    } catch (invalid_argument e) {
-        throw InvalidRequestException("Not a numeric id");
-    }
+    string cursoIDAsString = parsedUrl[4];
+    return cursoIDAsString;
 }
 
 Response *InscriptosHandler::handlePostRequest(http_message *httpMessage) {

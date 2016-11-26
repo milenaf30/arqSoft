@@ -22,7 +22,13 @@ public:
 
     Json::Value getJsonFromString(std::string basic_string);
 
-    Curso *getCurso(long materiaID, long cursoID);
+    Curso *getCurso(long materiaID, std::string cursoID);
+
+    void saveMateria(Json::Value jMateria);
+
+    void agregarInscriptoAlCurso(std::string materiaID, std::string cursoID, Alumno *alumno);
+
+    void updateMateria(Json::Value jMateria);
 };
 
 #endif //ARQSOFT_MATERIAMANAGER_H

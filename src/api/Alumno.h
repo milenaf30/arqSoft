@@ -14,8 +14,8 @@ public:
 
     std::string nombre;
     std::string apellido;
-    long padron;
-
+    std::string padron;
+    Json::Value jAlumno;
 };
 
 

@@ -8,5 +8,6 @@ Alumno::Alumno(Json::Value jAlumno) {
 
     this->nombre = jAlumno["nombre"].asString();
     this->apellido = jAlumno["apellido"].asString();
-    this->padron = jAlumno["padrón"].asLargestInt();
+    this->padron = jAlumno["padron"].asString();
+    this->jAlumno = jAlumno;
 }

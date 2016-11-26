@@ -16,7 +16,7 @@ class InscriptosHandler: public Handler {
     Response* handleDeleteRequest(http_message* httpMessage, string url) ;
     Response* handlePutRequest(http_message* httpMessage, string url) ;
 
-    long getCursoID(string url);
+    string getCursoID(string url);
     long getMateriaID(string url);
 
 public:

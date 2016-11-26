@@ -3,6 +3,7 @@
 //
 
 #include <json/json.h>
+#include <iostream>
 #include "Materia.h"
 #include "CursoInexistenteException.h"
 
@@ -13,7 +14,7 @@ Materia::Materia(Json::Value jMateria) {
         Curso* curso = new Curso(jCursosList[index]);
         this->cursos.push_back(curso);
     }
-    this->id = jMateria["materiaID"].asLargestInt();
+    this->id = jMateria["id"].asString();
     this->nombre = jMateria["nombre"].asString();
     this->jMateria = jMateria;
 
@@ -27,7 +28,7 @@ Materia::~Materia() {
 
 }
 
-Curso *Materia::getCurso(long cursoID) {
+Curso *Materia::getCurso(std::string cursoID) {
     for (int index = 0; index < this->cursos.size(); index++) {
         if (this->cursos[index]->id == cursoID) {
             return this->cursos[index];
@@ -35,4 +36,22 @@ Curso *Materia::getCurso(long cursoID) {
     }
 
     throw CursoInexistenteException();
+}
+
+void Materia::agregarInscripto(std::string cursoID, Alumno *alumno) {
+    this->getCurso(cursoID)->agregarAlumno(alumno);
+    this->resetJson();
+}
+
+void Materia::resetJson() {
+    Json::Value newJson;
+    newJson["id"] = this->id;
+    newJson["nombre"] = this->nombre;
+    for (int i = 0; i < this->cursos.size(); i++) {
+        newJson["cursos"].append(this->cursos[i]->jCurso);
+        //std::cout << this->cursos[i]->jCurso.toStyledString()<< std::endl;
+    }
+
+    //std::cout << newJson << std::endl;
+    this->jMateria = newJson;
 }

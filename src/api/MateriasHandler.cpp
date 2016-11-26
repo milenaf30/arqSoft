@@ -7,12 +7,15 @@
 #include "MateriaInexistenteException.h"
 #include "InvalidRequestException.h"
 
+
+
+
 MateriasHandler::MateriasHandler() {}
 
 MateriasHandler::~MateriasHandler() {}
 
 Response *MateriasHandler::handleGetRequest(http_message *httpMessage, string url) {
-    MateriaManager* materiaManager = new MateriaManager(nullptr);
+    MateriaManager* materiaManager = new MateriaManager(this->db);
     Response* response = new Response();
 
     try {
@@ -34,11 +37,12 @@ Response *MateriasHandler::handleGetRequest(http_message *httpMessage, string ur
 }
 
 long MateriasHandler::getMateriaID(string url) {
-    vector<string> parsedUrl = this->parseUrl(url);
-    if (parsedUrl.size() != 1) {
+    vector<string> parsedUrl = split(url, '/');
+    if (parsedUrl.size() < 2) {
         throw InvalidRequestException("Cannot get user id from url.");
     }
-    string materiaIDAsString = parsedUrl[0];
+    string materiaIDAsString = parsedUrl[2];
+
     try {
         long materiaID = stol(materiaIDAsString);
         return materiaID;
@@ -58,3 +62,5 @@ Response *MateriasHandler::handleDeleteRequest(http_message *httpMessage, string
 Response *MateriasHandler::handlePutRequest(http_message *httpMessage, string url) {
     return nullptr;
 }
+
+

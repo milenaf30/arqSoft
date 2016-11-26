@@ -1,5 +1,6 @@
 #include "Mongoose/mongoose.h"
 #include "api/WebHandler.h"
+#include "DbBuilder.h"
 
 static const char *s_http_port = "8000";
 static struct mg_serve_http_opts s_http_server_opts;
@@ -127,11 +128,12 @@ int main(int argc, char *argv[]) {
     s_http_server_opts.enable_directory_listing = "yes";
 
 
-
+    DbBuilder* dbBuilder = new DbBuilder();
+    dbBuilder->set_upDB();
+    delete dbBuilder;
     while (s_sig_num == 0) {
         mg_mgr_poll(&mgr, 1000);
     }
-
     mg_mgr_free(&mgr);
     return 0;
 }

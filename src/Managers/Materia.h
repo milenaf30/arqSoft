@@ -16,10 +16,14 @@ public:
     ~Materia();
     std::string nombre;
     Json::Value jMateria;
-    long id;
+    std::string id;
     std::vector<Curso*> cursos;
 
-    Curso *getCurso(long cursoID);
+    Curso *getCurso(std::string cursoID);
+
+    void agregarInscripto(std::string cursoID, Alumno *alumno);
+
+    void resetJson();
 };
 
 

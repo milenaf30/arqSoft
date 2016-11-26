@@ -2,22 +2,18 @@
 // Created by milena on 23/11/16.
 //
 
+#include <iostream>
 #include "Curso.h"
 
 Curso::Curso(Json::Value jcurso) {
-    this->id = jcurso["cursoID"].asLargestInt();
+    this->id = jcurso["cursoID"].asString();
     this->jCurso = jcurso;
     this->nombre = jcurso["nombre"].asString();
+    this->profesores = jcurso["profesores"].asString();
 
-    const Json::Value jprofesores = jcurso["profesores"];
-    for (int index = 0; index < jprofesores.size(); index++) {
-        this->profesores.push_back(jprofesores[index].asString());
-    }
-
-    const Json::Value jcronograma = jcurso["cronograma"];
+    const Json::Value jcronograma = jcurso["dias"];
     for (int index = 0; index < jcronograma.size(); index++) {
-        Dia* dia = new Dia(jcronograma[index]);
-        this->calendario.push_back(dia);
+        this->calendario.push_back(jcronograma[index].asString());
     }
 
     const Json::Value jAlumnos = jcurso["inscriptos"];
@@ -32,9 +28,15 @@ Curso::~Curso() {
     for (int index = 0; index < this->inscriptos.size(); index++) {
         delete(this->inscriptos[index]);
     }
+}
 
-    for (int index = 0; index < this->calendario.size(); index++) {
-        delete(this->calendario[index]);
-    }
+Curso::Curso() {
 
 }
+
+void Curso::agregarAlumno(Alumno *inscripto) {
+    this->inscriptos.push_back(inscripto);
+    this->jCurso["inscriptos"].append(inscripto->jAlumno);
+    //std::cout << this->jCurso.toStyledString();
+}
+

@@ -21,6 +21,8 @@ public:
     virtual Response* handleDeleteRequest(http_message* httpMessage, string url) = 0;
     virtual Response* handlePutRequest(http_message* httpMessage, string url) = 0;
 
+    vector<string> split(const string &s, char delim);
+
 protected:
     Response* getNotImplementedResponse();
     Json::Value parseBody(string body);
@@ -49,6 +51,9 @@ private:
 
 
     string *namedb;
+
+    void split2(const string &s, char delim, vector<string> &elems);
+
 };
 
 #endif //APPLICATIONSERVER_HANDLER_H

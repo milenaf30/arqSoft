@@ -14,15 +14,18 @@
 class Curso {
 public:
 
-    std::vector<std::string> profesores;
-    std::vector<Dia*> calendario;
+    Curso();
+
+    std::string profesores;
+    std::vector<std::string> calendario;
     std::vector<Alumno*> inscriptos;
     Json::Value jCurso;
-    long id;
+    std::string id;
     std::string nombre;
     Curso(Json::Value jcurso);
     ~Curso();
 
+    void agregarAlumno(Alumno *inscripto);
 };
 
 
