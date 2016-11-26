@@ -29,6 +29,10 @@ public:
     void agregarInscriptoAlCurso(std::string materiaID, std::string cursoID, Alumno *alumno);
 
     void updateMateria(Json::Value jMateria);
+
+    std::vector<Alumno *> getInscriptosCurso(std::string materiaID, std::string cursoID);
+
+    void updateInscriptosCurso(std::string materiaID, Curso *curso);
 };
 
 #endif //ARQSOFT_MATERIAMANAGER_H

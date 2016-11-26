@@ -22,11 +22,11 @@ Response *InscriptosHandler::handleGetRequest(http_message *httpMessage, string 
         long materiaID = this->getMateriaID(url);
         string cursoID = this->getCursoID(url);
         Curso* curso = materiaManager->getCurso(materiaID, cursoID);
-        Json::Value body;
-        Json::Value jcurso = curso->jCurso;
-        body["inscriptos"] = jcurso["inscriptos"];
+        //Json::Value body;
+        //Json::Value jcurso = curso->jCurso;
+       // body["inscriptos"] = jcurso["inscriptos"];
         response->setSuccessfulHeader();
-        response->setBody(body.toStyledString());
+        response->setBody(curso->jCurso.toStyledString());
     } catch (InvalidRequestException& e) {
         response->setBadRequestHeader();
         response->setErrorBody(e.getMessage());

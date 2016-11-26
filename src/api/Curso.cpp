@@ -8,7 +8,6 @@
 Curso::Curso(Json::Value jcurso) {
     this->id = jcurso["cursoID"].asString();
     this->jCurso = jcurso;
-    this->nombre = jcurso["nombre"].asString();
     this->profesores = jcurso["profesores"].asString();
 
     const Json::Value jcronograma = jcurso["dias"];
@@ -37,6 +36,6 @@ Curso::Curso() {
 void Curso::agregarAlumno(Alumno *inscripto) {
     this->inscriptos.push_back(inscripto);
     this->jCurso["inscriptos"].append(inscripto->jAlumno);
-    //std::cout << this->jCurso.toStyledString();
+    std::cout << this->jCurso.toStyledString();
 }
 
