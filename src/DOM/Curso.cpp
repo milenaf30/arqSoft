@@ -36,6 +36,6 @@ Curso::Curso() {
 void Curso::agregarAlumno(Alumno *inscripto) {
     this->inscriptos.push_back(inscripto);
     this->jCurso["inscriptos"].append(inscripto->jAlumno);
-    std::cout << this->jCurso.toStyledString();
+    //std::cout << this->jCurso.toStyledString();
 }
 

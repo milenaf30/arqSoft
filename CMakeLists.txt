@@ -26,8 +26,8 @@ add_subdirectory(src/googletest)
 
 set(SOURCE_FILES
         src/main.cpp
-        src/api/WebHandler.h
-        src/api/WebHandler.cpp
+        src/api/handler/WebHandler.h
+        src/api/handler/WebHandler.cpp
         src/api/Response.cpp
         src/api/handler/Handler.h
         src/api/handler/Handler.cpp
@@ -35,7 +35,7 @@ set(SOURCE_FILES
         src/DB/DBWrapper.h
         src/DB/DBWrapper.cpp
     src/Mongoose/mongoose.c
-    src/Mongoose/mongoose.h src/api/MateriasHandler.cpp src/api/MateriasHandler.h src/Managers/MateriaManager.cpp src/Managers/MateriaManager.h src/api/MateriaInexistenteException.cpp src/api/MateriaInexistenteException.h src/api/InvalidRequestException.cpp src/api/InvalidRequestException.h src/api/Curso.cpp src/api/Curso.h src/api/Dia.cpp src/api/Dia.h src/Managers/Manager.cpp src/Managers/Manager.h src/Managers/Materia.cpp src/Managers/Materia.h src/api/InscriptosHandler.cpp src/api/InscriptosHandler.h src/api/Alumno.cpp src/api/Alumno.h src/Managers/CursoInexistenteException.cpp src/Managers/CursoInexistenteException.h src/Managers/MateriaYaExisteException.cpp src/Managers/MateriaYaExisteException.h src/DbBuilder.cpp src/DbBuilder.h)
+    src/Mongoose/mongoose.h src/api/handler/MateriasHandler.cpp src/api/handler/MateriasHandler.h src/Managers/MateriaManager.cpp src/Managers/MateriaManager.h src/Exceptions/MateriaInexistenteException.cpp src/Exceptions/MateriaInexistenteException.h src/Exceptions/InvalidRequestException.cpp src/Exceptions/InvalidRequestException.h src/DOM/Curso.cpp src/DOM/Curso.h src/DOM/Dia.cpp src/DOM/Dia.h src/Managers/Manager.cpp src/Managers/Manager.h src/DOM/Materia.cpp src/DOM/Materia.h src/api/handler/InscriptosHandler.cpp src/api/handler/InscriptosHandler.h src/DOM/Alumno.cpp src/DOM/Alumno.h src/Exceptions/CursoInexistenteException.cpp src/Exceptions/CursoInexistenteException.h src/Exceptions/MateriaYaExisteException.cpp src/Exceptions/MateriaYaExisteException.h src/DB/DbBuilder.cpp src/DB/DbBuilder.h)
 
 add_executable(arqSoft ${SOURCE_FILES})
 

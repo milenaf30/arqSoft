@@ -6,7 +6,7 @@
 #define ARQSOFT_MATERIA_H
 
 
-#include "../api/Curso.h"
+#include "Curso.h"
 #include <vector>
 #include <string>
 

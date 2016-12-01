@@ -9,7 +9,7 @@ WebHandler::~WebHandler() {}
 Response* WebHandler::handleRequest(http_message* httpMessage) {
     Response* response = new Response();
     Handler* handler;
-
+    try{
         if (&httpMessage->uri) {
             //fixme
             string url = this->getUrl(httpMessage->uri);
@@ -25,6 +25,13 @@ Response* WebHandler::handleRequest(http_message* httpMessage) {
                 delete handler;
                 return response;
             }
+        }
+        }catch (exception &e) {
+            this->logRequest(httpMessage);
+            response->setInternalServerErrorHeader();
+            response->setErrorBody(e.what());
+            this->logResponse(response);
+            return response;
         }
 
 }

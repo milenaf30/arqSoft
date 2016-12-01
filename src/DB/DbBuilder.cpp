@@ -3,8 +3,8 @@
 //
 
 #include "DbBuilder.h"
-#include "Managers/MateriaManager.h"
-#include "Managers/MateriaYaExisteException.h"
+#include "../Managers/MateriaManager.h"
+#include "../Exceptions/MateriaYaExisteException.h"
 #include <iostream>
 #include <fstream>
 
@@ -23,7 +23,6 @@ std::vector<std::string> DbBuilder::cargar_materias() {
     std::ifstream file ("/home/milena/Escritorio/git/arqSoft/src/file1.csv");
     std::string value;
     std::vector<std::string> materias_disponibles;
-    std::string out = "";
     bool init = false;
     int contador = 1;
     Json::Value jMateria;
@@ -96,9 +95,14 @@ Json::Value DbBuilder::procesar_cursos(std::string value, Materia *materia) {
 
         if (informacion_de_cursos[index].compare("") != 0){
 
-            if (contador == 2){ jcurso["profesores"] = campo_valor[1]; init = true;}
-            if (contador == 4) jcurso["cursoID"] = campo_valor[1];
+            if (contador == 2){
+                jcurso["profesores"] = campo_valor[1];
+                init = true;
+            }
+            if (contador == 4)
+                jcurso["cursoID"] = campo_valor[1];
             if (contador >= 5 && campo_valor[0].compare("Materia") != 0) {
+                //Se hace el compare explicito porque habian saltos en el medio de los cursos
                 jcurso["dias"].append(informacion_de_cursos[index]);
             }
             contador++;
@@ -112,9 +116,9 @@ Json::Value DbBuilder::procesar_cursos(std::string value, Materia *materia) {
         }
     }
 
+    //queda un curso afuera por el parseo
     jcurso["inscriptos"];
     jcursos.append(jcurso);
-   // std::cout << jcursos << std::endl;
 
     return jcursos;
 }
@@ -133,7 +137,7 @@ void DbBuilder::cargar_alumnos(std::vector<std::string> materias_disponibles) {
         Materia* materia = materiaManager->getMateria(std::stol(id));
         std::vector<Curso*> cursos_disponibles = materia->cursos;
         int curso_index = std::rand() % (int)cursos_disponibles.size();
-        materiaManager->agregarInscriptoAlCurso(id, cursos_disponibles[curso_index]->id, alumno1);
+        materiaManager->agregarInscriptoAlCurso(materia, cursos_disponibles[curso_index]->id, alumno1);
         std::cout << "materiaID " + id <<std::endl;
         std::cout << "cursoID" + cursos_disponibles[curso_index]->id << std::endl;
     }
@@ -143,7 +147,6 @@ void DbBuilder::cargar_alumnos(std::vector<std::string> materias_disponibles) {
 std::string DbBuilder::crear_padron() {
     char padron[5];
     static const char num[] = "0123456789";
-    srand((unsigned int) time(NULL));
     for (int i = 0; i < 5; i++) {
         padron[i] = num[rand() % (sizeof(num) - 1)];
     }

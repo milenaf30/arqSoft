@@ -7,10 +7,10 @@
 
 
 #include <vector>
-#include "../api/Curso.h"
+#include "../DOM/Curso.h"
 #include "../DB/DBWrapper.h"
 #include "Manager.h"
-#include "Materia.h"
+#include "../DOM/Materia.h"
 
 class MateriaManager : public Manager{
 
@@ -26,13 +26,15 @@ public:
 
     void saveMateria(Json::Value jMateria);
 
-    void agregarInscriptoAlCurso(std::string materiaID, std::string cursoID, Alumno *alumno);
+    void agregarInscriptoAlCurso(Materia *materia, std::string cursoID, Alumno *alumno);
 
     void updateMateria(Json::Value jMateria);
 
     std::vector<Alumno *> getInscriptosCurso(std::string materiaID, std::string cursoID);
 
     void updateInscriptosCurso(std::string materiaID, Curso *curso);
+
+    Materia *getMateriaResume(long materiaID);
 };
 
 #endif //ARQSOFT_MATERIAMANAGER_H

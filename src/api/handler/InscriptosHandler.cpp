@@ -3,8 +3,9 @@
 //
 
 #include "InscriptosHandler.h"
-#include "../Managers/MateriaManager.h"
-#include "InvalidRequestException.h"
+#include "../../Managers/MateriaManager.h"
+#include "../../Exceptions/InvalidRequestException.h"
+#include "../../Exceptions/CursoInexistenteException.h"
 
 InscriptosHandler::InscriptosHandler() {
 
@@ -30,6 +31,10 @@ Response *InscriptosHandler::handleGetRequest(http_message *httpMessage, string 
     } catch (InvalidRequestException& e) {
         response->setBadRequestHeader();
         response->setErrorBody(e.getMessage());
+    } catch (CursoInexistenteException& exception1) {
+        response->setNotFoundHeader();
+        response->setErrorBody(exception1.what());
+
     }
 
 

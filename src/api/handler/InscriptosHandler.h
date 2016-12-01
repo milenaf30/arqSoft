@@ -6,7 +6,7 @@
 #define ARQSOFT_INSCRIPTOSHANDLER_H
 
 
-#include "handler/Handler.h"
+#include "Handler.h"
 
 class InscriptosHandler: public Handler {
     ~InscriptosHandler();

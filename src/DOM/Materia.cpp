@@ -5,7 +5,7 @@
 #include <json/json.h>
 #include <iostream>
 #include "Materia.h"
-#include "CursoInexistenteException.h"
+#include "../Exceptions/CursoInexistenteException.h"
 
 Materia::Materia(Json::Value jMateria) {
 
@@ -40,7 +40,7 @@ Curso *Materia::getCurso(std::string cursoID) {
 
 void Materia::agregarInscripto(std::string cursoID, Alumno *alumno) {
     this->getCurso(cursoID)->agregarAlumno(alumno);
-    //this->resetJson();
+    this->resetJson();
 }
 
 void Materia::resetJson() {

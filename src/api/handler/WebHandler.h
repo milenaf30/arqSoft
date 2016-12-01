@@ -1,9 +1,9 @@
 #ifndef APPLICATIONSERVER_WEBHANDLER_H
 #define APPLICATIONSERVER_WEBHANDLER_H
 
-#include "../Mongoose/mongoose.h"
-#include "Response.h"
-#include "handler/Handler.h"
+#include "mongoose.h"
+#include "../Response.h"
+#include "Handler.h"
 #include <regex>
 #include <cstring>
 

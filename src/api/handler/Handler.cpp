@@ -1,6 +1,6 @@
 #include <iostream>
 #include "Handler.h"
-#include "../InvalidRequestException.h"
+#include "../../Exceptions/InvalidRequestException.h"
 #include "../../DB/DBWrapper.h"
 
 static const struct mg_str s_get_method = MG_MK_STR("GET");

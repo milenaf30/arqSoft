@@ -3,9 +3,9 @@
 //
 
 #include "MateriasHandler.h"
-#include "../Managers/MateriaManager.h"
-#include "MateriaInexistenteException.h"
-#include "InvalidRequestException.h"
+#include "../../Managers/MateriaManager.h"
+#include "../../Exceptions/MateriaInexistenteException.h"
+#include "../../Exceptions/InvalidRequestException.h"
 
 
 
@@ -20,7 +20,7 @@ Response *MateriasHandler::handleGetRequest(http_message *httpMessage, string ur
 
     try {
         long materiaID = this->getMateriaID(url);
-        Materia* materia = materiaManager->getMateria(materiaID);
+        Materia* materia = materiaManager->getMateriaResume(materiaID);
         response->setBody(materia->jMateria.toStyledString());
         response->setSuccessfulHeader();
         delete materia;

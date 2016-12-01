@@ -7,8 +7,8 @@
 
 #include <string>
 #include <bits/basic_string.h>
-#include "Managers/Materia.h"
-#include "DB/DBWrapper.h"
+#include "../DOM/Materia.h"
+#include "DBWrapper.h"
 
 class DbBuilder {
 public:
